@@ -1,0 +1,5 @@
+Micro service 
+
+   Distribution tax - Network latency
+   can be addressed by using Reactive approach.
+   
