@@ -63,10 +63,110 @@ So the calling system will not fail.
 Calling system from failing when releasing new version of API.
 
 *** Strong versioning startegy along strong passivity rules. ***
-
+--------------------------
 Communication pattern:
     Distribution on a single datacenter is not a mandate or requirement.
   
+Distribution and scalability is the advantage of microservice
+If an service providing cusotmer data is being used by the other service
+more often, the load can be distributed just by creating multiple instance 
+using API proxy layer, there is no change to the code.
+
+I.e. individual service can be scaled individually.
+----------------------------
+
+Service invocation in microservices architecture is over remote network call, 
+like connection setup, tear down, and wire latency on every single call.
+
+Latency is relatively insignificant for a single call.
+Eventually the single call becomes many as the code path
+grows, which in addition increases latency.
+If the service is on load, the risk of latency is increase in response time.
+
+GridLock:
+> Latency can exponentially exaggerated in a model where every call is remote.
+At certain point this latency can develop into a gridlock of the system as a
+whole. While calls are waiting for response, delays can be unexceptable leading to 
+failure.
+
+> another path to gridlock is due to circular calls. Any service can be call
+and othe service in microservice world. The calling service is subsequently
+called multiple times by down stream service, which is circular call stack.
+The latency can be a problem, when a multiple service can depend on service involved
+in cicular call stack.
+
+How to overcome gridlock and latency issue?
+ > To control this negative reacton to gridlock and latency, one such pattern is to use
+ a ***circuit breaker***.
+ > in circuit breaker, has a standard behaviour when latency occurs time-out occurs.
+ then trip the curcuit and began the default behaviour (basic or reduced functions). 
+     -There is possible sufferring of reduced function.
+     -When the service are back to normal, circuit closes and behaves normal
+Example:
+ Netflix Hystrix: supports the cricuit breaker pattern.
+ > Strong time-out logic, can limit the use of circuit breaker.
+
+Key for better microservices:
+   > strong time-out logic
+   > global distribution of all service offerring
+   > scalable individual load
+   > usage of circuit breaker pattern
+   
+   ------------------
+   Sizing the microservice:
+      > leverage Domain driven design strategy
+      > focus on bounded context when decompossing large multi-domain system into
+      individual service.
+   
+   Deisgn pattern used to decompose Domain Driven Design pattern.
+     * Investigate working system
+     * Determine the domains
+     * Break services up accordingly (boundaries of system)
+   
+How to determine the bounded context of domain for splititng the granularity?
+    << Don't focus on just splitting the service bases on data domain. This might 
+    some time lead to latency issue.>>
+   
+   Analyze the traffic patterns based on real world use cases.
+    > reduce the cross-domain calls.
+    
+Example:
+Customer service & login service
+As determine the traffic pattern, 
+when the login service is hit multiple times the cusotmer service/domain is called.
+- There might be a suggestion to put the two domains as one domain.
+- we need to determine the boundary, the data of customer domain might be saved in a 
+different manner, etc. Reason to have it as a seperate domain.
+
+There is no specific reason to do this, but building strong bounded context will
+reduce the number of calls made.
+
+Another advantage to have better well defined context:
+   > for strong contract
+   > self-discovery as a whole system 
+
+Consumer should be able to locate the correct location to discover the service.
+
+
+
+
+
+   
+
+     
+   
+    
+   
+   
+
+ 
+ 
+
+
+
+
+
+
 
  
 
