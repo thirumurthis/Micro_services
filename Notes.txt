@@ -197,3 +197,62 @@ it will be a complicated when there are more number of consumer.
 The API layer could leverage the proxy and the development will be easy.
 
 A passive API can handle versioning.
+--------------
+
+Asynchronous communication:
+    Leveraging of event-driven Asynchronous communication reduces Latency
+    To achieve this is not easy.
+
+    > Event-Driven using Message Queue (Asynchronous).
+    > Stream data platform, the events are written to the center message systems
+    or broker, this events triggers listener operator. this is highly useful in
+    distributed environment.
+
+Dead letter queue - should be monitor
+-----------------
+
+Logging and tracing :
+        plan for unified logging strategy against all platform.
+
+Logging in microservice is noisier.
+     Large volume of artifacts
+     Agile nature
+     Different team different logging Strategy.
+
+log aggregators:
+      should be used in case of distributed.
+       this is uniform
+Tracing:
+      Create a unique token, use it for all the logging event for all the services
+      involved, each service uses the token and passes it.
+-------------------
+
+continuous delivery:
+     Agility
+
+Routing technique
+or blue green technique used for production deployment
+
+-----------------
+
+Hybrid architecture: Hierarchy and service based services:
+
+Hierarchy:
+    Models an n-tier hierarchy modelling {expose data as service, business process
+    as services, edge services}
+    use this only for transition
+
+---------------
+
+Design Consideration:
+    > 1. CI/CD implementation should be first even starting the coding.
+    > 2. Design on logging and tracing should be considered. (use log aggregator
+    and search feature.)
+    > 3. Evaluate and consider non-blocking code. Standardize stack when possible.
+    > 4. Try to implement the calls Asynchronous activity - reduces latency.
+
+------------
+Mark Richard and Martin Fowler.
+
+Dichotomy, issues of complexity
+ 
